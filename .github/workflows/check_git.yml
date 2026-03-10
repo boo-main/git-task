@@ -1,0 +1,24 @@
+name: Git Assignment Checker
+on:
+  push:
+    branches:
+      - develop # Тесты запустятся только когда ученик запушит ветку develop
+
+jobs:
+  grade:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Важно для проверки веток в test_branch_policy
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Run Tests
+        run: |
+          # Убеждаемся, что мы тестируем именно состояние ветки develop
+          pytest tests/test_git.py
