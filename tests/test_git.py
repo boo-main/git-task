@@ -20,24 +20,16 @@ def test_fio_in_code():
     # Проверяем наличие строки с ФИО в самом файле calc.py
     with open("calc.py", "r", encoding="utf-8") as f:
         first_line = f.readline()
-    assert "# Автор:" in first_line, "Ошибка: В первой строке calc.py должен быть комментарий '# Автор: ФИО'"
+    assert "# Автор:" in first_line, "Ошибка: В первой строке calc.py должен быть комментарий '# Автор: Имя Фамилия'"
     assert len(first_line.split("Автор:")) > 1 and len(first_line.split("Автор:")[1].strip()) > 5, \
         "Ошибка: ФИО в комментарии не заполнено или слишком короткое."
 
 
 def test_branch_policy():
-    # Мы сравниваем удаленный main и удаленный develop.
-    # Если ученик сделал пуш в свой main, то origin/main будет содержать эти коммиты.
-    # Мы проверяем, что develop ушел вперед относительно main, а не наоборот.
-
-    # Сначала убедимся, что мы сравниваем актуальные данные с сервера
+    # проверяем, что develop ушел вперед относительно main, а не наоборот.
     try:
         # Сравниваем две удаленные ветки
         diff = get_git_output("git rev-list origin/main..origin/develop --count")
-
-        # Также проверим, не пушил ли студент что-то в main (сравнение локального main и удаленного main обычно в CI не имеет смысла,
-        # так как CI всегда работает с тем, что прилетело на сервер).
-
         assert int(diff) >= 0, "Ошибка в структуре веток."
     except subprocess.CalledProcessError:
         # Если origin/main не найден, возможно, ветка называется master
