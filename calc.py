@@ -1,4 +1,6 @@
-# Автор: ...
+# Автор: Евгений Юрченко
+import math
+
 
 def add(a, b):
     return a + b
@@ -9,8 +11,11 @@ def subtract(a, b):
 
 
 def multiply(a, b):
-    # TODO: не реализовано
-    return None
+    return a * b
+
+
+def sqrt(n):
+    return math.sqrt(n)
 
 
 if __name__ == "__main__":
