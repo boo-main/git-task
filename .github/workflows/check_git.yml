@@ -25,4 +25,4 @@ jobs:
 
       - name: Run Tests
         run: |
-          pytest tests/test_git.py
+          python -m pytest tests/test_git.py
